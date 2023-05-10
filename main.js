@@ -4,17 +4,22 @@ function createCell() {
     return div;
 }
 
-function createGrid(x, y) {
-    for (let i = 0; i < x; i++) {
-        for (let j = 0; j < y; j++) {
-            const newCell = createCell();
-            document.querySelector("#grid-container").appendChild(newCell);
-        }
+function createGrid(numOfCells) {
+    for (let i = 0; i < numOfCells; i++) {
+        const newCell = createCell();
+        document.querySelector("#grid-container").appendChild(newCell);
     }
 }
 
+function resetGrid() {
+    const cells = document.querySelectorAll("#grid-container > div");
+    cells.forEach((cell) => {
+        cell.style.backgroundColor = "darkGreen";
+    })
+}
+
 // Create grid
-createGrid(16, 16);
+createGrid(256);
 
 // Change cell color
 function changeCellColor(event) {
@@ -26,3 +31,7 @@ const gridCells = document.querySelectorAll("#grid-container > div");
 gridCells.forEach((cell) => {
     cell.addEventListener("mouseover", changeCellColor);
 })
+
+// Add event listener for reset button
+const resetBtn = document.querySelector("#btn-reset");
+resetBtn.addEventListener("click", resetGrid);
