@@ -4,10 +4,15 @@ function createCell() {
     return div;
 }
 
-function createGrid(numOfCells) {
+function createGrid(size) {
+    const grid = document.querySelector("#grid-container");
+    grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+    grid.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+
+    const numOfCells = size * size;
     for (let i = 0; i < numOfCells; i++) {
         const newCell = createCell();
-        document.querySelector("#grid-container").appendChild(newCell);
+        grid.appendChild(newCell);
     }
 }
 
@@ -19,7 +24,7 @@ function resetGrid() {
 }
 
 // Create grid
-createGrid(256);
+createGrid(16);
 
 // Change cell color
 function changeCellColor(event) {
