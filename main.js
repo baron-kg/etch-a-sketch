@@ -1,7 +1,12 @@
+function changeCellColor(event) {
+    event.target.style.backgroundColor = "darkRed";
+}
+
 function createCell() {
-    const div = document.createElement("div");
-    div.id = "cell";
-    return div;
+    const cell = document.createElement("div");
+    cell.id = "cell";
+    cell.addEventListener("click", changeCellColor);
+    return cell;
 }
 
 function createGrid(size) {
@@ -33,17 +38,13 @@ function deletGrid() {
 
 createGrid(16);
 
-function changeCellColor(event) {
-    event.target.style.backgroundColor = "darkRed";
-}
-
 function deleteMode() {
     const delBtn = document.querySelector("#btn-delete");
     const gridCells = document.querySelectorAll("#grid-container > div");
 
     if (delBtn.style.backgroundColor != "red") {
         gridCells.forEach((cell) => {
-            cell.addEventListener("click", function() {
+            cell.addEventListener("click", function () {
                 this.style.backgroundColor = "white";
             });
         });
@@ -51,30 +52,24 @@ function deleteMode() {
         document.querySelector("#grid-container").style.cursor = "crosshair";
         return;
     }
-    
+
     gridCells.forEach((cell) => {
-        cell.addEventListener("click", function() {
+        cell.addEventListener("click", function () {
             this.style.backgroundColor = "darkRed";
-            });
-        })
-    
+        });
+    })
+
     delBtn.style.backgroundColor = "";
     document.querySelector("#grid-container").style.cursor = "";
 }
-
-// Add event listeners for hover on all cells
-const gridCells = document.querySelectorAll("#grid-container > div");
-gridCells.forEach((cell) => {
-    cell.addEventListener("click", changeCellColor);
-})
 
 // Add event listener for reset button
 const resetBtn = document.querySelector("#btn-reset");
 resetBtn.addEventListener("click", resetGrid);
 
-//Slider
+//Add event listener to range slider
 const range = document.querySelector("#range");
-range.addEventListener("mouseup", function() {
+range.addEventListener("mouseup", function () {
     deletGrid();
     createGrid(this.value);
     document.querySelector("#range-value").textContent = `${this.value} x ${this.value}`;
