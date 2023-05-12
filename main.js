@@ -19,22 +19,47 @@ function createGrid(size) {
 function resetGrid() {
     const cells = document.querySelectorAll("#grid-container > div");
     cells.forEach((cell) => {
-        cell.style.backgroundColor = "darkGreen";
+        cell.style.backgroundColor = "white";
     })
 }
 
-// Create grid
 createGrid(16);
 
-// Change cell color
 function changeCellColor(event) {
     event.target.style.backgroundColor = "darkRed";
+}
+
+function deleteMode() {
+    const delBtn = document.querySelector("#btn-delete");
+    if (delBtn.style.backgroundColor != "red") {
+        const gridCells = document.querySelectorAll("#grid-container > div");
+        gridCells.forEach((cell) => {
+            cell.addEventListener("click", function() {
+                this.style.backgroundColor = "white";
+            });
+        });
+
+        delBtn.style.backgroundColor = "red";
+        document.querySelector("#grid-container").style.cursor = "crosshair";
+        return;
+    }
+
+    const gridCells = document.querySelectorAll("#grid-container > div");
+        gridCells.forEach((cell) => {
+            cell.addEventListener("click", function() {
+                this.style.backgroundColor = "darkRed";
+            });
+        })
+    
+    delBtn.style.backgroundColor = "";
+    document.querySelector("#grid-container").style.cursor = "";
+    return;
 }
 
 // Add event listeners for hover on all cells
 const gridCells = document.querySelectorAll("#grid-container > div");
 gridCells.forEach((cell) => {
-    cell.addEventListener("mouseover", changeCellColor);
+    cell.addEventListener("click", changeCellColor);
 })
 
 // Add event listener for reset button
